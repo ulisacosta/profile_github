@@ -13,7 +13,7 @@ async function getUser(user) {
 
   } catch (err) {
    if(err.response.status == 404) {
-      createError('No find this user')
+      createError("I didn't find this user")
   }
   }
 }
@@ -48,23 +48,33 @@ function createProfile(user) {
    const userName = user.name || user.login
       const html =
       `
-      <div class="">
+      <div class="cardUser">
 
-      <div class="">
-      <img src="${user.avatar_url}"  alt="avatar" class="rounded-lg">  </img>
-      </div>
-         <div class="h-1/4 w-2/4 ">
-      <h2 class="text-white"> ${userName}  </h2>
-      <h2 class="text-white"> ${user.bio}  </h2>
-      <h2 class="text-white"> ${user.followers}  </h2>
-      <h2 class="text-white"> ${user.following}  </h2>
-      <h2 class="text-white"> ${user.public_repos}  </h2>
       
+      <div class="user">
+      <div class="">
+      <img src="${user.avatar_url}"  alt="avatar" class="avatar">  </img>
+      </div>
+      
+      <div class="divInfo">
+      
+      <p class="infoUser"> ${userName}  </p>
+      <p class="infoUser"> ${user.bio}  </p>
+     
+      <div class="numbersInfo">
+      <p class="infoUser"> | Followers ${user.followers} | </p>
+      <p class="infoUser"> | Following ${user.following} | </p>
+      <p class="infoUser"> | Repos ${user.public_repos} | </p>
+      
+      </div>
+      </div>
+
       </div>
       
       <div id="repos">
-
+      <p>Repositories:</p>
       </div>
+
       </div>
       `; 
    main.innerHTML = html
@@ -76,7 +86,7 @@ function createRepo(repos){
    .slice(0,4)
    .forEach(repo => {
       const repoElement = document.createElement('a')
-      repoElement.classList.add('bg-slate-600')
+      repoElement.classList.add('repos')
       repoElement.href = repo.html_url
       repoElement.target = '_blank'
       repoElement.innerText = repo.name
