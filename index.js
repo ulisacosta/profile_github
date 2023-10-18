@@ -5,7 +5,7 @@ const main = document.querySelector("main");
 const form = document.querySelector("form");
 
 
-async function getUser(user) {
+ async function getUser(user) {
   try {
      const { data } = await axios(APIURL + user);
      createProfile(data)
@@ -16,9 +16,23 @@ async function getUser(user) {
       createError("I didn't find this user")
   }
   }
-}
+} 
 
-async function getRepos(user){
+/* async function getUser(user){
+   try{
+      const response = await fetch(APIURL + user);
+      const data = await response.json()
+      createProfile(data);
+      getRepos(user);
+   }
+   catch (err) {
+   
+         createError("I didn't find this user")
+   
+   }
+}
+ */
+ async function getRepos(user){
    try { 
       const {data} = await axios(APIURL + user + "/repos?sort=created") 
       createRepo(data)
@@ -30,6 +44,20 @@ async function getRepos(user){
    
 }
 }
+
+
+/* async function getRepos(user){
+   try{
+      const response = await fetch(APIURL + user + "/repos?sort=created")
+      const data = await response.json()
+      createRepo(data)
+   }
+   catch (err) {
+     
+         createError('No find repos')
+
+   }
+} */
 
 function createError(msgError){
    const html = 
@@ -62,9 +90,9 @@ function createProfile(user) {
       <p class="infoUser"> ${user.bio}  </p>
      
       <div class="numbersInfo">
-      <p class="infoUser"> | Followers ${user.followers} | </p>
-      <p class="infoUser"> | Following ${user.following} | </p>
-      <p class="infoUser"> | Repos ${user.public_repos} | </p>
+      <p class="infoUser"> | Followers: ${user.followers} | </p>
+      <p class="infoUser"> | Following: ${user.following} | </p>
+      <p class="infoUser"> | Repos: ${user.public_repos} | </p>
       
       </div>
       </div>
